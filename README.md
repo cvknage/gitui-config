@@ -37,7 +37,7 @@
 ## Usage
 
 1. Clone this repository locally
-2. Run the install script; `bash install.sh` to symlink the `gitui` dir to the `themes` dir.
+2. Run the install script; `bash install.sh` to create a symlink from `$HOME/.config/gitui` to `./theme`.
 3. Add the following to your shells' rc file:
 ``` bash
 gitui_theme() {
