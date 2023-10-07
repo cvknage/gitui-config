@@ -37,10 +37,36 @@
 ## Usage
 
 1. Clone this repository locally
-2. Make sure the directory `~/.config/gitui` exists. If it doesn't run `gitui` in a git repository to create the necessary files
-3. Copy the `.ron` files from the theme directory in this repository to `~/.config/gitui` with `cp ./theme/*.ron ~/.config/gitui`
-4. Alias `gitui` to `gitui -t <theme>.ron` in your shell's rc file, replacing `<theme>` with mocha, macchiato, frappe, or latte.
-5. Run `gitui` and see the magic happen!
+2. Run the install script; `bash install.sh` to symlink the `gitui` dir to the `themes` dir.
+3. Add the following to your shells' rc file:
+``` bash
+gitui_theme() {
+  OS="$(uname)"
+  case $OS in
+  "Linux")
+    # gdbus call --session --dest org.freedesktop.portal.Desktop --object-path /org/freedesktop/portal/desktop --method org.freedesktop.portal.Settings.Read org.freedesktop.appearance color-scheme
+    if [[ $(gsettings get org.gnome.desktop.interface color-scheme) =~ "dark" ]]; then
+      gitui -t mocha.ron
+    else
+      gitui -t frappe.ron
+    fi
+    ;;
+  "Darwin")
+    if [[ $(defaults read -g AppleInterfaceStyle) == "Dark" ]]; then
+      gitui -t mocha.ron
+    else
+      gitui -t frappe.ron
+    fi
+    ;;
+  *)
+    gitui -t macchiato.ron
+    ;;
+  esac
+}
+
+alias gitui="gitui_theme"
+```
+4. Run `gitui` and see the magic happen!
 
 > **Note**: The theme you choose should be the same theme as in your terminal configuration, as the colors look bad without it.
 
