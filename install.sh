@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CONFIG_DIR="$HOME/.config/gitui/"
+CONFIG_DIR="$HOME/.config/gitui"
 INSTALL_DIR="$(pwd)/install/"
 
 rm -rf $CONFIG_DIR
