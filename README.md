@@ -52,7 +52,8 @@ gitui_theme() {
     fi
     ;;
   "Darwin")
-    if [[ $(defaults read -g AppleInterfaceStyle) == "Dark" ]]; then
+    local dark_mode=$(osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode.get()")
+    if [[ "$dark_mode" == "true" ]];  then
       gitui -t mocha.ron
     else
       gitui -t frappe.ron
